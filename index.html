@@ -1,12 +1,12 @@
+cd /var/www/zeekup.net
+cat > index.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX.TV</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <title>APEX.TV - Canlı Yayın</title>
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,69 +15,57 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #000000;
-            color: #ffffff;
-            overflow: hidden;
-            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            padding: 20px;
+            color: #fff;
+            overflow-x: hidden;
         }
 
-        /* Subtle vignette effect */
+        /* Animated Background */
         body::before {
             content: '';
             position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
-            pointer-events: none;
-            z-index: 1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 40, 200, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(40, 120, 200, 0.15) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite;
+            z-index: 0;
         }
 
-        /* Ultra subtle noise for premium texture */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 2;
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
-        /* Container */
         .container {
             position: relative;
-            z-index: 10;
+            z-index: 1;
             width: 100%;
-            max-width: 1000px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-            opacity: 0;
-            animation: fadeIn 2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        /* Header - Ultra minimal */
+        /* Header */
         .header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            opacity: 0;
-            animation: slideDown 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease;
         }
 
-        @keyframes slideDown {
+        @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(-30px);
             }
             to {
                 opacity: 1;
@@ -85,285 +73,175 @@
             }
         }
 
-        /* Elegant thin logo bar */
-        .logo-mark {
-            width: 2px;
-            height: 28px;
-            background: linear-gradient(to bottom, 
-                rgba(255, 255, 255, 0.9) 0%, 
-                rgba(255, 255, 255, 0.3) 100%
-            );
-            border-radius: 1px;
-        }
-
-        /* Refined typography */
-        .logo-text {
-            font-size: 20px;
-            font-weight: 300;
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
             letter-spacing: 8px;
-            color: rgba(255, 255, 255, 0.95);
-            text-transform: uppercase;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
         }
 
-        /* Minimal live indicator */
         .live-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-left: auto;
-            padding: 6px 14px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 0.5px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 500;
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid #ff0000;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.5);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: pulse-badge 2s ease-in-out infinite;
         }
 
-        .live-badge:hover {
-            background: rgba(255, 255, 255, 0.03);
-            border-color: rgba(255, 255, 255, 0.12);
+        @keyframes pulse-badge {
+            0%, 100% { 
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+            }
         }
 
-        /* Elegant pulsing dot */
         .live-dot {
-            width: 6px;
-            height: 6px;
-            background: #ef4444;
+            width: 10px;
+            height: 10px;
+            background: #ff0000;
             border-radius: 50%;
-            animation: pulse 3s ease-in-out infinite;
+            animation: blink 1.5s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.6;
-                transform: scale(1.2);
-            }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
-        /* Player section */
-        .player-section {
-            position: relative;
-            opacity: 0;
-            animation: scaleIn 2s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+        /* Player Card */
+        .player-card {
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 1s ease 0.3s both;
         }
 
-        @keyframes scaleIn {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: scale(0.98);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: translateY(0);
             }
         }
 
-        /* Ultra-thin elegant frame */
-        .player-frame {
+        /* Video Player Wrapper */
+        .video-wrapper {
             position: relative;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(40px);
-            border: 0.5px solid rgba(255, 255, 255, 0.06);
-            border-radius: 8px;
-            padding: 2px;
+            border-radius: 15px;
             overflow: hidden;
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .player-frame:hover {
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Subtle inner shadow for depth */
-        .player-frame::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 8px;
-            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
-            pointer-events: none;
-        }
-
-        /* Video Player */
-        #apex-player {
-            width: 100%;
-            aspect-ratio: 16/9;
-            min-height: 350px;
-            border-radius: 6px;
-            background: #000000;
-            position: relative;
-            z-index: 1;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
         }
 
         .video-js {
             width: 100%;
-            height: 100%;
+            height: auto;
+            aspect-ratio: 16/9;
         }
 
-        .vjs-big-play-button {
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
+        /* Custom Video.js Dark Theme */
+        .video-js {
+            background-color: #000;
+        }
+
+        .video-js .vjs-control-bar {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .video-js .vjs-big-play-button {
+            background: rgba(102, 126, 234, 0.9);
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            line-height: 80px;
-            font-size: 40px;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            font-size: 48px;
+            transition: all 0.3s ease;
         }
 
-        .vjs-big-play-button:hover {
-            background: rgba(255, 255, 255, 0.15);
+        .video-js .vjs-big-play-button:hover {
+            background: rgba(118, 75, 162, 1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
         }
 
-        /* Minimal corner indicators */
-        .corner {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            border: 0.5px solid rgba(255, 255, 255, 0.08);
-            pointer-events: none;
-            z-index: 2;
-            opacity: 0;
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .video-js .vjs-play-progress {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         }
 
-        .player-frame:hover .corner {
-            opacity: 1;
-            border-color: rgba(255, 255, 255, 0.12);
+        .video-js .vjs-volume-level {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         }
 
-        .corner.tl {
-            top: 8px;
-            left: 8px;
-            border-right: none;
-            border-bottom: none;
-            border-radius: 6px 0 0 0;
+        /* Loading Animation */
+        .vjs-loading-spinner {
+            border-color: rgba(102, 126, 234, 0.8);
         }
 
-        .corner.tr {
-            top: 8px;
-            right: 8px;
-            border-left: none;
-            border-bottom: none;
-            border-radius: 0 6px 0 0;
+        /* Footer Info */
+        .info-bar {
+            margin-top: 30px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 1s ease 0.6s both;
         }
 
-        .corner.bl {
-            bottom: 8px;
-            left: 8px;
-            border-right: none;
-            border-top: none;
-            border-radius: 0 0 0 6px;
-        }
-
-        .corner.br {
-            bottom: 8px;
-            right: 8px;
-            border-left: none;
-            border-top: none;
-            border-radius: 0 0 6px 0;
+        .info-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
         }
 
         /* Responsive */
-        @media (max-width: 1200px) {
-            .container {
-                max-width: 900px;
-                padding: 35px;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .container {
-                padding: 30px;
-                gap: 28px;
-            }
-            #apex-player {
-                min-height: 320px;
-            }
-        }
-
         @media (max-width: 768px) {
-            .container {
-                padding: 25px;
-                gap: 24px;
+            .logo {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
             }
-            
-            .logo-text {
-                font-size: 16px;
-                letter-spacing: 6px;
-            }
-            
-            .logo-mark {
-                height: 24px;
-            }
-            
-            .live-badge {
-                padding: 5px 12px;
-                font-size: 9px;
-            }
-            
-            #apex-player {
-                min-height: 280px;
-            }
-            
-            .corner {
-                width: 20px;
-                height: 20px;
-            }
-        }
 
-        @media (max-width: 480px) {
-            .container {
+            .player-card {
                 padding: 20px;
-                gap: 20px;
             }
-            
-            .logo-text {
-                font-size: 14px;
-                letter-spacing: 4px;
-            }
-            
-            .logo-mark {
-                height: 20px;
-            }
-            
-            #apex-player {
-                min-height: 220px;
+
+            .header {
+                margin-bottom: 30px;
             }
         }
 
-        /* Elegant scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Selection */
-        ::selection {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
+        /* Glowing Effect on Hover */
+        .player-card:hover {
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(102, 126, 234, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: box-shadow 0.5s ease;
         }
     </style>
 </head>
@@ -371,80 +249,80 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <div class="logo-mark"></div>
-            <div class="logo-text">APEX.TV</div>
+            <div class="logo">APEX.TV</div>
             <div class="live-badge">
-                <div class="live-dot"></div>
-                <span>Live</span>
+                <span class="live-dot"></span>
+                CANLI YAYIN
             </div>
         </div>
 
-        <!-- Player -->
-        <div class="player-section">
-            <div class="player-frame">
-                <div class="corner tl"></div>
-                <div class="corner tr"></div>
-                <div class="corner bl"></div>
-                <div class="corner br"></div>
-                
+        <!-- Player Card -->
+        <div class="player-card">
+            <div class="video-wrapper">
                 <video 
                     id="apex-player" 
-                    class="video-js vjs-default-skin vjs-big-play-centered" 
+                    class="video-js vjs-big-play-centered"
                     controls 
                     preload="auto"
-                    data-setup='{}'>
+                    data-setup='{"fluid": true, "aspectRatio": "16:9"}'>
+                    <source src="https://stream.zeekup.net/hls/live.m3u8" type="application/x-mpegURL">
+                    <p class="vjs-no-js">
+                        Bu video oynatıcıyı görüntülemek için lütfen JavaScript'i etkinleştirin.
+                    </p>
                 </video>
             </div>
         </div>
+
+        <!-- Info Bar -->
+        <div class="info-bar">
+            <p class="info-text">🎬 Premium Kalitede Canlı Yayın Deneyimi</p>
+        </div>
     </div>
 
+    <!-- Video.js Scripts -->
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@videojs/http-streaming@3.10.0/dist/videojs-http-streaming.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@videojs/http-streaming@3.9.0/dist/videojs-http-streaming.min.js"></script>
+    
     <script>
-        // APEX.TV Player Initialization
-        const player = videojs('apex-player', {
-            autoplay: true,
-            muted: false,
+        // Initialize Video.js Player
+        var player = videojs('apex-player', {
             controls: true,
-            fluid: false,
-            aspectRatio: '16:9',
+            autoplay: true,
+            preload: 'auto',
+            fluid: true,
             liveui: true,
             html5: {
                 vhs: {
                     overrideNative: true
                 },
+                nativeVideoTracks: false,
                 nativeAudioTracks: false,
-                nativeVideoTracks: false
+                nativeTextTracks: false
             }
         });
 
-        // HLS Stream URL
-        const streamUrl = 'http://46.202.155.212:8080/hls/stream.m3u8';
-
-        // Set source and play
-        player.src({
-            src: streamUrl,
-            type: 'application/x-mpegURL'
-        });
-
-        // Auto-play when ready
-        player.ready(function() {
-            console.log('APEX.TV Player Ready');
-            player.play().catch(e => {
-                console.log('Autoplay prevented, user interaction needed');
-            });
-        });
-
-        // Error handling
+        // Error Handling
         player.on('error', function() {
-            const error = player.error();
-            console.error('Player error:', error);
+            console.error('Video yükleme hatası:', player.error());
         });
 
-        // Playing event
-        player.on('playing', function() {
-            console.log('Stream is playing!');
+        // Ready Event
+        player.on('ready', function() {
+            console.log('Player hazır!');
+        });
+
+        // Play Event
+        player.on('play', function() {
+            console.log('Yayın başladı!');
         });
     </script>
 </body>
 </html>
+HTMLEOF
+```
+
+---
+
+## ✅ ENTER BAS VE TEST ET!
+```
+https://zeekup.net
