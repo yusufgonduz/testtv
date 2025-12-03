@@ -25,7 +25,7 @@
             position: relative;
         }
 
-        /* Animated Gradient Background */
+        /* Subtle Dark Background Pattern */
         body::before {
             content: '';
             position: fixed;
@@ -34,99 +34,94 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
-            animation: pulse 20s ease-in-out infinite;
+                radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
             z-index: 0;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
         }
 
         .container {
             position: relative;
             z-index: 1;
             width: 100%;
-            max-width: 1600px;
+            max-width: 1800px;
             padding: 20px;
         }
 
-        /* Logo */
+        /* Logo - Pure White */
         .logo {
             position: absolute;
-            top: 40px;
+            top: 50px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 900;
-            letter-spacing: 14px;
-            background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: 16px;
+            color: #fff;
             z-index: 10;
-            text-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
         }
 
-        /* Live Indicator */
+        /* Live Indicator - Red */
         .live-indicator {
             position: absolute;
-            top: 45px;
-            right: 40px;
+            top: 55px;
+            right: 50px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(239, 68, 68, 0.1);
-            border: 2px solid rgba(239, 68, 68, 0.5);
-            padding: 8px 18px;
-            border-radius: 25px;
-            font-size: 0.8rem;
+            gap: 10px;
+            background: rgba(220, 38, 38, 0.15);
+            border: 2px solid rgba(220, 38, 38, 0.6);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
             font-weight: 700;
-            letter-spacing: 2px;
-            color: #ef4444;
+            letter-spacing: 3px;
+            color: #dc2626;
             z-index: 10;
             backdrop-filter: blur(10px);
         }
 
         .live-dot {
-            width: 9px;
-            height: 9px;
-            background: #ef4444;
+            width: 10px;
+            height: 10px;
+            background: #dc2626;
             border-radius: 50%;
             animation: blink 1.5s ease-in-out infinite;
+            box-shadow: 0 0 10px #dc2626;
         }
 
         @keyframes blink {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
+            50% { opacity: 0.3; }
         }
 
-        /* Player Container */
+        /* Player Container - Premium Dark */
         .player-container {
             width: 100%;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            background: rgba(10, 10, 10, 0.6);
-            backdrop-filter: blur(30px);
-            border-radius: 24px;
-            padding: 25px;
+            background: linear-gradient(145deg, rgba(15, 15, 15, 0.9), rgba(5, 5, 5, 0.95));
+            backdrop-filter: blur(40px);
+            border-radius: 30px;
+            padding: 30px;
             box-shadow: 
-                0 25px 80px rgba(0, 0, 0, 0.8),
-                0 0 0 1px rgba(255, 255, 255, 0.05),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+                0 30px 90px rgba(0, 0, 0, 0.9),
+                0 0 0 1px rgba(255, 255, 255, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* Video Wrapper */
         .video-wrapper {
             position: relative;
-            border-radius: 18px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            box-shadow: 
+                0 25px 70px rgba(0, 0, 0, 1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
         }
 
-        /* Video.js Styling */
+        /* Video.js Premium Dark Styling */
         .video-js {
             width: 100%;
             height: auto;
@@ -135,61 +130,72 @@
         }
 
         .video-js .vjs-control-bar {
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, transparent 100%);
-            backdrop-filter: blur(15px);
+            background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.9) 50%, transparent 100%);
+            backdrop-filter: blur(20px);
         }
 
         .video-js .vjs-big-play-button {
-            background: rgba(139, 92, 246, 0.95);
-            border: 3px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            border: 3px solid rgba(255, 255, 255, 0.4);
             border-radius: 50%;
-            width: 90px;
-            height: 90px;
-            line-height: 90px;
-            font-size: 45px;
-            transition: all 0.3s ease;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            font-size: 50px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
         }
 
         .video-js .vjs-big-play-button:hover {
-            background: rgba(59, 130, 246, 1);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: scale(1.08);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(1.1);
         }
 
         .video-js .vjs-play-progress {
-            background: linear-gradient(90deg, #8b5cf6 0%, #3b82f6 100%);
+            background: #fff;
         }
 
         .video-js .vjs-volume-level {
-            background: linear-gradient(90deg, #8b5cf6 0%, #3b82f6 100%);
+            background: #fff;
         }
 
         .vjs-loading-spinner {
-            border-color: rgba(139, 92, 246, 0.9);
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Hover Effect on Container */
+        .player-container:hover {
+            box-shadow: 
+                0 30px 90px rgba(0, 0, 0, 0.9),
+                0 0 60px rgba(255, 255, 255, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transition: all 0.5s ease;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .logo {
-                font-size: 1.8rem;
-                letter-spacing: 10px;
-                top: 30px;
+                font-size: 2rem;
+                letter-spacing: 12px;
+                top: 35px;
             }
 
             .live-indicator {
-                top: 35px;
-                right: 20px;
+                top: 40px;
+                right: 25px;
                 font-size: 0.7rem;
-                padding: 6px 14px;
+                padding: 8px 16px;
             }
 
             .player-container {
-                padding: 18px;
-                border-radius: 20px;
+                padding: 20px;
+                border-radius: 25px;
             }
         }
 
-        /* Security: Prevent Right Click & Shortcuts */
+        /* Security */
         body {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -201,16 +207,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- Logo -->
         <div class="logo">APEX.TV</div>
-
-        <!-- Live Indicator -->
         <div class="live-indicator">
             <span class="live-dot"></span>
             LIVE
         </div>
-
-        <!-- Player -->
         <div class="player-container">
             <div class="video-wrapper">
                 <video 
@@ -225,12 +226,10 @@
         </div>
     </div>
 
-    <!-- Video.js Scripts -->
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@videojs/http-streaming@3.9.0/dist/videojs-http-streaming.min.js"></script>
     
     <script>
-        // Initialize Player
         (function() {
             const player = videojs('apex-player', {
                 controls: true,
@@ -239,43 +238,23 @@
                 fluid: true,
                 liveui: true,
                 html5: {
-                    vhs: {
-                        overrideNative: true
-                    },
+                    vhs: { overrideNative: true },
                     nativeVideoTracks: false,
                     nativeAudioTracks: false,
                     nativeTextTracks: false
                 }
             });
 
-            // Security: Disable Right Click
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-            });
-
-            // Security: Disable F12, Ctrl+Shift+I, Ctrl+U
-            document.addEventListener('keydown', function(e) {
-                // F12
-                if(e.keyCode == 123) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
-                if(e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Ctrl+U
-                if(e.ctrlKey && e.keyCode == 85) {
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            document.addEventListener('keydown', e => {
+                if(e.keyCode == 123 || 
+                   (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) ||
+                   (e.ctrlKey && e.keyCode == 85)) {
                     e.preventDefault();
                     return false;
                 }
             });
-
-            // Security: Disable Text Selection
-            document.addEventListener('selectstart', function(e) {
-                e.preventDefault();
-            });
+            document.addEventListener('selectstart', e => e.preventDefault());
         })();
     </script>
 </body>
