@@ -3,259 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX.TV - Canlı Yayın</title>
+    <title>APEX.TV</title>
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #000;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: #141414;
+            color: #fff;
+            overflow-x: hidden;
         }
 
-        /* Subtle Dark Background Pattern */
-        body::before {
-            content: '';
+        /* Header - Netflix Style */
+        .header {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
-            z-index: 0;
-        }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 1800px;
-            padding: 20px;
-        }
-
-        /* Logo - Pure White */
-        .logo {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3rem;
-            font-weight: 900;
-            letter-spacing: 16px;
-            color: #fff;
-            z-index: 10;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Live Indicator - Red */
-        .live-indicator {
-            position: absolute;
-            top: 55px;
-            right: 50px;
+            right: 0;
+            height: 70px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(220, 38, 38, 0.15);
-            border: 2px solid rgba(220, 38, 38, 0.6);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: #dc2626;
-            z-index: 10;
-            backdrop-filter: blur(10px);
+            justify-content: space-between;
+            padding: 0 4%;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            color: #e50914;
+        }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(229, 9, 20, 0.2);
+            border: 1px solid #e50914;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         .live-dot {
-            width: 10px;
-            height: 10px;
-            background: #dc2626;
+            width: 8px;
+            height: 8px;
+            background: #e50914;
             border-radius: 50%;
-            animation: blink 1.5s ease-in-out infinite;
-            box-shadow: 0 0 10px #dc2626;
+            animation: pulse 2s infinite;
         }
 
-        @keyframes blink {
+        @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            50% { opacity: 0.4; }
         }
 
-        /* Player Container - Premium Dark */
-        .player-container {
-            width: 100%;
-            max-width: 1600px;
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            padding-bottom: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Player Container - Optimal Size */
+        .player-wrapper {
+            width: 90%;
+            max-width: 1280px;
             margin: 0 auto;
-            background: linear-gradient(145deg, rgba(15, 15, 15, 0.9), rgba(5, 5, 5, 0.95));
-            backdrop-filter: blur(40px);
-            border-radius: 30px;
-            padding: 30px;
-            box-shadow: 
-                0 30px 90px rgba(0, 0, 0, 0.9),
-                0 0 0 1px rgba(255, 255, 255, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Video Wrapper */
-        .video-wrapper {
+        .video-container {
             position: relative;
-            border-radius: 20px;
+            background: #000;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 
-                0 25px 70px rgba(0, 0, 0, 1),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
         }
 
-        /* Video.js Premium Dark Styling */
+        /* Video.js Premium Styling */
         .video-js {
             width: 100%;
             height: auto;
             aspect-ratio: 16/9;
-            background: #000;
         }
 
         .video-js .vjs-control-bar {
-            background: linear-gradient(to top, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.9) 50%, transparent 100%);
-            backdrop-filter: blur(20px);
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            height: 4em;
         }
 
         .video-js .vjs-big-play-button {
-            background: rgba(255, 255, 255, 0.15);
-            border: 3px solid rgba(255, 255, 255, 0.4);
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            width: 100px;
-            height: 100px;
-            line-height: 100px;
-            font-size: 50px;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(10px);
+            background: rgba(229, 9, 20, 0.9);
+            border: none;
+            line-height: 80px;
+            font-size: 40px;
+            transition: all 0.3s;
         }
 
         .video-js .vjs-big-play-button:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(229, 9, 20, 1);
             transform: scale(1.1);
         }
 
         .video-js .vjs-play-progress {
-            background: #fff;
+            background: #e50914;
         }
 
         .video-js .vjs-volume-level {
-            background: #fff;
+            background: #e50914;
         }
 
-        .vjs-loading-spinner {
-            border-color: rgba(255, 255, 255, 0.9);
+        .video-js .vjs-progress-holder {
+            height: 5px;
         }
 
-        /* Hover Effect on Container */
-        .player-container:hover {
-            box-shadow: 
-                0 30px 90px rgba(0, 0, 0, 0.9),
-                0 0 60px rgba(255, 255, 255, 0.05),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            transition: all 0.5s ease;
+        .video-js:hover .vjs-progress-holder {
+            height: 8px;
+        }
+
+        /* Info Section */
+        .info-section {
+            max-width: 1280px;
+            margin: 30px auto 0;
+            padding: 0 5%;
+        }
+
+        .stream-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .stream-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .quality-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
+            .header {
+                height: 60px;
+                padding: 0 4%;
+            }
+
             .logo {
-                font-size: 2rem;
-                letter-spacing: 12px;
-                top: 35px;
+                font-size: 1.4rem;
+                letter-spacing: 3px;
             }
 
-            .live-indicator {
-                top: 40px;
-                right: 25px;
+            .live-badge {
                 font-size: 0.7rem;
-                padding: 8px 16px;
+                padding: 5px 12px;
             }
 
-            .player-container {
-                padding: 20px;
-                border-radius: 25px;
+            .player-wrapper {
+                width: 95%;
+            }
+
+            .info-section {
+                padding: 0 4%;
+            }
+
+            .stream-title {
+                font-size: 1.1rem;
+            }
+
+            .stream-meta {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Ultra-wide screens */
+        @media (min-width: 1920px) {
+            .player-wrapper {
+                max-width: 1600px;
             }
         }
 
         /* Security */
-        body {
-            -webkit-touch-callout: none;
+        * {
+            user-select: none;
             -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Header -->
+    <div class="header">
         <div class="logo">APEX.TV</div>
-        <div class="live-indicator">
+        <div class="live-badge">
             <span class="live-dot"></span>
-            LIVE
+            CANLI
         </div>
-        <div class="player-container">
-            <div class="video-wrapper">
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="player-wrapper">
+            <!-- Video Player -->
+            <div class="video-container">
                 <video 
-                    id="apex-player" 
+                    id="player" 
                     class="video-js vjs-big-play-centered"
                     controls 
                     preload="auto"
-                    data-setup='{"fluid": true, "aspectRatio": "16:9"}'>
+                    data-setup='{}'>
                     <source src="https://stream.zeekup.net/hls/live.m3u8" type="application/x-mpegURL">
                 </video>
+            </div>
+
+            <!-- Stream Info -->
+            <div class="info-section">
+                <div class="stream-title">Canlı Yayın</div>
+                <div class="stream-meta">
+                    <span class="quality-badge">FULL HD</span>
+                    <span>🔴 Canlı</span>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@videojs/http-streaming@3.9.0/dist/videojs-http-streaming.min.js"></script>
     
     <script>
-        (function() {
-            const player = videojs('apex-player', {
-                controls: true,
-                autoplay: true,
-                preload: 'auto',
-                fluid: true,
-                liveui: true,
-                html5: {
-                    vhs: { overrideNative: true },
-                    nativeVideoTracks: false,
-                    nativeAudioTracks: false,
-                    nativeTextTracks: false
-                }
-            });
+        const player = videojs('player', {
+            controls: true,
+            autoplay: true,
+            preload: 'auto',
+            fluid: true,
+            aspectRatio: '16:9',
+            liveui: true,
+            html5: {
+                vhs: { overrideNative: true },
+                nativeVideoTracks: false,
+                nativeAudioTracks: false,
+                nativeTextTracks: false
+            }
+        });
 
-            document.addEventListener('contextmenu', e => e.preventDefault());
-            document.addEventListener('keydown', e => {
-                if(e.keyCode == 123 || 
-                   (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) ||
-                   (e.ctrlKey && e.keyCode == 85)) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            document.addEventListener('selectstart', e => e.preventDefault());
-        })();
+        // Security
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if(e.keyCode === 123 || 
+               (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) ||
+               (e.ctrlKey && e.keyCode === 85)) {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
